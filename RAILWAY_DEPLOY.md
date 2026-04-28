@@ -18,6 +18,8 @@ BOT_TOKEN=your_telegram_bot_token
 
 If the PostgreSQL service has a different name, replace `Postgres` with that service name.
 
+After changing variables in Railway, apply the staged changes and redeploy the bot service.
+
 ## 3. Deploy
 
 Railway will use `railway.json`.

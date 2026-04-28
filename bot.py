@@ -1,15 +1,12 @@
 import asyncio
 import logging
 import os
-
 from aiogram import Bot, Dispatcher
 from aiogram.types import Message
 from aiogram.filters import CommandStart
 from aiogram.fsm.storage.memory import MemoryStorage
 from sqlalchemy import text
-
 from dotenv import load_dotenv
-
 from keyboards.main_menu import main_keyboard
 from handlers import common, reminders, sleep
 from database.db import engine
@@ -20,10 +17,13 @@ from services.reminders import send_due_reminders
 # 📌 Загружаем .env
 load_dotenv()
 
-BOT_TOKEN = os.getenv("BOT_TOKEN")
+BOT_TOKEN = os.getenv("BOT_TOKEN") or os.getenv("TELEGRAM_BOT_TOKEN")
 
 if not BOT_TOKEN:
-    raise RuntimeError("BOT_TOKEN must be set in .env")
+    raise RuntimeError(
+        "BOT_TOKEN is not set. Add BOT_TOKEN to Railway service variables "
+        "or to local .env."
+    )
 
 
 # 📌 Создаем бота и dispatcher с FSM
